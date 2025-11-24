@@ -240,7 +240,7 @@ class RefundController extends Controller
         $response = $library->decryptData($payload);
         $data = $response['data'];
         $sender_id = $data['sender_id'];
-        $exmploadId = explode('marspay', $sender_id);
+        $exmploadId = explode('infypay', $sender_id);
         $id = $exmploadId[1];
         $status = $data['status'];
         if ($status == 'Success') {

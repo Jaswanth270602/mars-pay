@@ -10,8 +10,12 @@
     <link href="//fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
     <!-- //web fonts -->
     <!-- Template CSS -->
-    <link rel="stylesheet" href="{{url('front/css/style-freedom.css')}}">
+     <link rel="stylesheet" href="{{ url('public/assets/css/style.css') }}">
 
+    <!-- <link rel="stylesheet" href="{{url('front/css/style-freedom.css')}}"> -->
+<style> 
+
+</style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
@@ -24,7 +28,7 @@
 <script async src='https://www.googletagmanager.com/gtag/js?id=UA-149859901-1'></script>
 
 <meta name="robots" content="noindex">
-<body>
+<!-- <body> -->
 
 @if (Auth::guest())
 
@@ -77,7 +81,7 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link" href="{{url('')}}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url('')}}">Home1</a></li>
                     @foreach(App\Models\Navigation::where('status_id', 1)->where('company_id', $company_id)->where('type', 1)->get() as $value)
                     <li class="nav-item"><a class="nav-link" href="{{url('pages')}}/{{$company_id}}/{{ $value->navigation_slug}}">{{ $value->navigation_name }}</a></li>
                     @endforeach

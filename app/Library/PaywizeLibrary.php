@@ -18,7 +18,7 @@ namespace App\library {
 
         function transferNow($user_id, $mobile_number, $amount, $beneficiary_name, $account_number, $ifsc_code, $insert_id)
         {
-            $sender_id = 'marspay' . $insert_id;
+            $sender_id = 'infypay' . $insert_id;
             $data = [
                 "amount" => $amount . '.00',
                 "payment_mode" => "IMPS",

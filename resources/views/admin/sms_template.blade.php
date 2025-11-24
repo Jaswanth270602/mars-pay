@@ -139,7 +139,7 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="name">Template Message</label>
-                                    <textarea type="text" id="view_template_message" class="form-control" readonly></textarea>
+                                    <textarea type="text" id="view_template_message" class="form-control" ></textarea>
                                 </div>
                             </div>
 
