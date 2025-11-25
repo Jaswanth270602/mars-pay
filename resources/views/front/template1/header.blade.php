@@ -1,221 +1,187 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ $company_name }}</title>
+<link href="//fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <title>{{ $company_name }}</title>
-    <!-- web fonts -->
-    <link href="//fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
-    <!-- //web fonts -->
-    <!-- Template CSS -->
-     <link rel="stylesheet" href="{{ url('public/assets/css/style.css') }}">
+<style>
+body { font-family: 'Karla', sans-serif; margin:0; padding:0; background:#f8f9fa; color:#333; }
+a { text-decoration:none; color:inherit; }
+ul { list-style:none; padding:0; margin:0; }
+li { display:inline-block; margin-right:10px; }
 
-    <!-- <link rel="stylesheet" href="{{url('front/css/style-freedom.css')}}"> -->
-<style> 
+/* Top Header */
+.top-hd { background:#007bff; color:#fff; padding:8px 0; font-size:14px; }
+.top-hd a { color:#fff; margin-left:5px; }
+.social-top li a { color:#fff; margin-left:5px; font-size:14px; }
 
+/* Navbar */
+.navbar { display:flex; justify-content:space-between; align-items:center; background:#fff; padding:10px 20px; box-shadow:0 2px 8px rgba(0,0,0,0.1); position:sticky; top:0; z-index:999; }
+.navbar-brand img { height:60px; }
+.navbar-nav { display:flex; align-items:center; margin:0; padding:0; }
+.navbar-nav li { margin:0 10px; }
+.navbar-nav li a { padding:8px 12px; color:#333; font-weight:500; transition:0.3s; }
+.navbar-nav li a:hover { color:#007bff; }
+.btn-theme { padding:6px 15px; border-radius:4px; font-weight:bold; color:#fff; text-align:center; transition:0.3s; }
+.btn-secondary { background:#6c757d; }
+.btn-secondary:hover { background:#5a6268; }
+.btn-primary { background:#007bff; margin-left:5px; }
+.btn-primary:hover { background:#0056b3; }
+
+/* Carousel */
+.carousel-inner img { width:100%; height:400px; object-fit:cover; border-radius:8px; }
+.carousel-control-prev-icon, .carousel-control-next-icon { background-color:#007bff; border-radius:50%; width:40px; height:40px; }
+
+/* FOOTER */
+.footer {
+    background:#1e1e1e;
+    color:#bbb;
+    padding:40px 0 20px;
+    margin-top:50px;
+}
+.footer h4 {
+    color:#fff;
+    font-size:18px;
+    margin-bottom:15px;
+}
+.footer a {
+    color:#bbb;
+    display:block;
+    margin:4px 0;
+    font-size:14px;
+    transition:0.3s;
+}
+.footer a:hover {
+    color:#fff;
+}
+.footer .footer-logo img {
+    height:60px;
+}
+.footer-bottom {
+    text-align:center;
+    color:#aaa;
+    padding:10px 0;
+    border-top:1px solid #444;
+    font-size:14px;
+}
+
+@media(max-width:768px){
+    .navbar-nav { flex-direction:column; }
+    .navbar-nav li { margin:5px 0; }
+}
 </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-<script src='//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
-<script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
 
-<script src="https://codefund.io/properties/441/funder.js" async="async"></script>
+<!-- Top Header -->
+<div class="top-hd">
+    <div class="container" style="display:flex; justify-content:space-between;">
+        <div>
+            <li><span class="fa fa-mobile"></span><a href="tel:{{ $whatsapp_number }}">{{ $whatsapp_number }}</a></li>
+            <li><span class="fa fa-envelope"></span>{{ $company_email }}</li>
+        </div>
+        <div class="social-top">
+            <li><a href="#"><span class="fa fa-facebook"></span></a></li>
+            <li><a href="#"><span class="fa fa-instagram"></span></a></li>
+            <li><a href="#"><span class="fa fa-twitter"></span></a></li>
+            <li><a href="#"><span class="fa fa-vimeo"></span></a></li>
+        </div>
+    </div>
+</div>
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src='https://www.googletagmanager.com/gtag/js?id=UA-149859901-1'></script>
+<!-- Navbar -->
+<nav class="navbar">
+    <a class="navbar-brand" href="{{url('')}}"><img src="{{$cdnLink}}{{ $company_logo }}"></a>
+    <ul class="navbar-nav">
+        <li><a href="{{url('')}}">Home</a></li>
+        @foreach(App\Models\Navigation::where('status_id', 1)->where('company_id', $company_id)->where('type', 1)->get() as $value)
+            <li><a href="{{url('pages')}}/{{$company_id}}/{{ $value->navigation_slug}}">{{ $value->navigation_name }}</a></li>
+        @endforeach
+        <li><a href="{{url('contact-us')}}">Contact</a></li>
+    </ul>
+    <div>
+        <a class="btn btn-secondary btn-theme" href="{{url('login')}}">Login</a>
+        @if($registration_status == 1)
+            <a class="btn btn-primary btn-theme" href="{{url('sign-up')}}">Register</a>
+        @endif
+    </div>
+</nav>
 
-<meta name="robots" content="noindex">
-<!-- <body> -->
+<!-- CONTENT AREA -->
+<div class="content-wrapper pt-4 pb-4">
+    @yield('content')
+</div>
 
-@if (Auth::guest())
-
-@else
-    @if(Auth::user()->role_id <= 7)
-        <script type="text/javascript">
-            document.location.href = "admin/dashboard";
-        </script>
-    @else
-        <script type="text/javascript">
-            document.location.href = "agent/dashboard";
-        </script>
-    @endif
-@endif
-{!! $chat_script !!}
-
-<link rel="stylesheet" href="{{url('front/css/demobar_w3_4thDec2019.css')}}">
-<!-- Top Menu 1 -->
-<section class="w3l-top-menu-1" style="margin-top: -44px;">
-    <div class="top-hd">
-        <div class="container">
-            <header class="row">
-                <div class="accounts col-sm-9 col-6">
-                    <li class="top_li"><span class="fa fa-mobile"></span><a href="tel:{{ $whatsapp_number }}">{{ $whatsapp_number }}</a> </li>
-                    <li class="top_li2"><span class="fa fa-envelope"></span> {{ $company_email }} </li>
-                </div>
-                <div class="social-top col-sm-3 col-6">
-                    <li><a href="#"><span class="fa fa-facebook pr-2"></span></a></li>
-                    <li><a href="#"><span class="fa fa-instagram pr-2"></span></a> </li>
-                    <li><a href="#"><span class="fa fa-twitter pr-2"></span></a></li>
-                    <li><a href="#"><span class="fa fa-vimeo"></span></a> </li>
-                </div>
-            </header>
+<!-- Carousel -->
+<section id="home">
+    <div class="container">
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                @foreach($frontbanner as $key => $banner)
+                    <div class="carousel-item {{ $key == 0 ? ' active' : '' }}">
+                        <img src="{{$banner->banners}}" alt="Banner">
+                    </div>
+                @endforeach
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </a>
         </div>
     </div>
 </section>
-<!-- //Top Menu 1 -->
-<section class="w3l-bootstrap-header">
-    <nav class="navbar navbar-expand-lg navbar-light py-lg-2 py-2">
-        <div class="container">
-            <a class="navbar-brand" href="{{url('')}}"><img src="{{$cdnLink}}{{ $company_logo }}" style="height: 60px;"></a>
-            <!-- if logo is image enable this
-            <a class="navbar-brand" href="#index.html">
-                <img src="image-path" alt="Your logo" title="Your logo" style="height:35px;" />
-            </a> -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon fa fa-bars"></span>
-            </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link" href="{{url('')}}">Home1</a></li>
-                    @foreach(App\Models\Navigation::where('status_id', 1)->where('company_id', $company_id)->where('type', 1)->get() as $value)
-                    <li class="nav-item"><a class="nav-link" href="{{url('pages')}}/{{$company_id}}/{{ $value->navigation_slug}}">{{ $value->navigation_name }}</a></li>
-                    @endforeach
+<!-- FOOTER SECTION -->
+<footer class="footer">
+    <div class="container" style="display:flex; flex-wrap:wrap; justify-content:space-between;">
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url('contact-us')}}">Contact</a>
-                    </li>
-                </ul>
-                <form class="form-inline">
-                    <a class="btn btn-secondary btn-theme" href="{{url('login')}}"> Login</a>
-                </form>
-                   &nbsp; &nbsp;
-                @if($registration_status == 1)
-                <form class="form-inline">
-                    <a class="btn btn-primary btn-theme" href="{{url('sign-up')}}"> Register</a>
-                </form>
-                @endif
-            </div>
+        <!-- Logo & About -->
+        <div class="footer-logo" style="flex:1; min-width:250px; margin-bottom:20px;">
+            <img src="{{$cdnLink}}{{ $company_logo }}" alt="Logo">
+            <p style="margin-top:10px; font-size:14px;">
+                {{ $company_name }} is a trusted payment solution platform providing fast, secure,
+                and reliable services for all kinds of businesses.
+            </p>
         </div>
-    </nav>
-</section>
 
-@yield('content')
-
-<!-- grids block 5 -->
-<section class="w3l-footer-29-main">
-    <div class="footer-29">
-        <div class="container">
-            <div class="d-grid grid-col-4 footer-top-29">
-                <div class="footer-list-29 footer-1">
-                    <h6 class="footer-title-29"><a href="{{url('')}}"><img src="{{$cdnLink}}{{ $company_logo }}" style="height: 60px;"></a></h6>
-
-                   {{-- <div class="main-social-footer-29">
-                        <a href="#facebook" class="facebook"><span class="fa fa-facebook"></span></a>
-                        <a href="#twitter" class="twitter"><span class="fa fa-twitter"></span></a>
-                        <a href="#instagram" class="instagram"><span class="fa fa-instagram"></span></a>
-                        <a href="#google-plus" class="google-plus"><span class="fa fa-google-plus"></span></a>
-                        <a href="#linkedin" class="linkedin"><span class="fa fa-linkedin"></span></a>
-                    </div>--}}
-                </div>
-                <div class="footer-list-29 footer-2">
-                    <ul>
-                        <h6 class="footer-title-29">Features</h6>
-
-                    </ul>
-                </div>
-
-                <div class="footer-list-29 footer-3">
-
-                    <h6 class="footer-title-29">Newsletter </h6>
-                    <form action="#" class="subscribe" method="post">
-                        <input type="email" name="email" placeholder="Email" required="">
-                        <button><span class="fa fa-envelope-o"></span></button>
-                    </form>
-                    <p>Subscribe and get our weekly newsletter</p>
-                    <p>We'll never share your email address</p>
-
-                </div>
-                <div class="footer-list-29 footer-4">
-                    <ul>
-                        <h6 class="footer-title-29">Quick Links</h6>
-                        @foreach(App\Models\Navigation::where('status_id', 1)->where('company_id', $company_id)->where('type', 2)->get() as $value)
-                        <li><a href="{{url('pages')}}/{{$company_id}}/{{ $value->navigation_slug}}">{{ $value->navigation_name }}</a></li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-            <div class="d-grid grid-col-2 bottom-copies">
-                <p class="copy-footer-29">© 2020 {{ $company_name }}. All rights reserved </p>
-                <ul class="list-btm-29">
-                    @foreach(App\Models\Navigation::where('status_id', 1)->where('company_id', $company_id)->where('type',2)->get() as $value)
-                    <li><a href="{{url('pages')}}/{{$company_id}}/{{ $value->navigation_slug}}">{{ $value->navigation_name }}</a></li>
-                    @endforeach
-
-                </ul>
-            </div>
+        <!-- Quick Links -->
+        <div style="flex:1; min-width:200px; margin-bottom:20px;">
+            <h4>Quick Links</h4>
+            <a href="{{url('')}}">Home</a>
+            @foreach(App\Models\Navigation::where('status_id', 1)->where('company_id', $company_id)->where('type', 1)->get() as $value)
+                <a href="{{url('pages')}}/{{$company_id}}/{{ $value->navigation_slug}}">{{ $value->navigation_name }}</a>
+            @endforeach
+            <a href="{{url('contact-us')}}">Contact</a>
         </div>
+
+        <!-- Contact Info -->
+        <div style="flex:1; min-width:200px; margin-bottom:20px;">
+            <h4>Contact Us</h4>
+            <p><span class="fa fa-map-marker"></span> {{ $company_address }}</p>
+            <p><span class="fa fa-envelope"></span> {{ $company_email }}</p>
+            <p><span class="fa fa-phone"></span> {{ $whatsapp_number }}</p>
+        </div>
+
+        <!-- Social -->
+        <div style="flex:1; min-width:180px; margin-bottom:20px;">
+            <h4>Follow Us</h4>
+            <a href="#"><span class="fa fa-facebook"></span> Facebook</a>
+            <a href="#"><span class="fa fa-instagram"></span> Instagram</a>
+            <a href="#"><span class="fa fa-twitter"></span> Twitter</a>
+            <a href="#"><span class="fa fa-youtube"></span> YouTube</a>
+        </div>
+
     </div>
-    <!-- move top -->
-    <button onclick="topFunction()" id="movetop" title="Go to top">
-        <span class="fa fa-angle-up"></span>
-    </button>
-    <script>
-        // When the user scrolls down 20px from the top of the document, show the button
-        window.onscroll = function () {
-            scrollFunction()
-        };
 
-        function scrollFunction() {
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                document.getElementById("movetop").style.display = "block";
-            } else {
-                document.getElementById("movetop").style.display = "none";
-            }
-        }
-
-        // When the user clicks on the button, scroll to the top of the document
-        function topFunction() {
-            document.body.scrollTop = 0;
-            document.documentElement.scrollTop = 0;
-        }
-    </script>
-    <!-- /move top -->
-</section>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-
-<!-- //footer-28 block -->
-</section>
-<script>
-    $(function () {
-        $('.navbar-toggler').click(function () {
-            $('body').toggleClass('noscroll');
-        })
-    });
-</script>
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
-</script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-</script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
-</script>
-
-<!-- Template JavaScript -->
-<script src="{{url('front/js/all.js')}}"></script>
-<!-- Smooth scrolling -->
-<!-- <script src="assets/js/smoothscroll.js"></script> -->
-
+    <div class="footer-bottom">
+        © {{ date('Y') }} {{ $company_name }} — All Rights Reserved.
+    </div>
+</footer>
 
 </body>
-
 </html>
-<!-- // grids block 5 -->
-
