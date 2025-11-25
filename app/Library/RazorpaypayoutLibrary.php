@@ -1,6 +1,6 @@
 <?php
 
-namespace App\library {
+namespace App\Library {
 
     use App\Models\Razorpaycontact;
     use App\Models\User;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\library {
+namespace App\Library {
     use App\Models\User;
     use Helpers;
     use App\Models\Api;

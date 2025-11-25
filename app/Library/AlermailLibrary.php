@@ -1,6 +1,6 @@
 <?php
 
-namespace App\library {
+namespace App\Library {
     use App\Numberdata;
     use App\Circleprovider;
     use App\Backupapi;

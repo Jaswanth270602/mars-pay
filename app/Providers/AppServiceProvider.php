@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         try {
-            $host = $_SERVER['HTTP_HOST'] ?? 'localhost:8888';
+            $host = $_SERVER['HTTP_HOST'] ??  '13.60.104.103';
 
             $company = Company::where('company_website', $host)
                             ->where('status_id', 1)

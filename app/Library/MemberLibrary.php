@@ -1,6 +1,6 @@
 <?php
 
-namespace App\library {
+namespace App\Library {
 
     use http\Client\Response;
     use Illuminate\Support\Facades\Auth;
