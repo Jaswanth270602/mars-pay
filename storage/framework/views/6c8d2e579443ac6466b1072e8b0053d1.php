@@ -387,6 +387,7 @@ ul { list-style:none; }
 </section>
 
 <!-- Features Section -->
+ <?php if(Request::is('/')): ?>
 <section class="features-section">
     <div class="container">
         <div style="text-align:center; margin-bottom:20px;">
@@ -412,7 +413,7 @@ ul { list-style:none; }
         </div>
     </div>
 </section>
-
+<?php endif; ?>
 <!-- CONTENT AREA -->
 <div class="content-wrapper">
     <div class="container">
