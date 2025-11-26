@@ -1,6 +1,126 @@
 @extends('front.template1.header')
 @section('content')
 
+<style>
+/* ------------------------------
+   CONTACT PAGE BEAUTIFUL DESIGN
+--------------------------------*/
+
+/* Inner Banner */
+.w3l-inner-banner-main {
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                url('../images/banner.jpg') center/cover no-repeat;
+    padding: 80px 0;
+    color: #fff;
+}
+.w3l-inner-banner-main .breadcrumbs-custom-path li {
+    color: #fff;
+    font-size: 15px;
+}
+.breadcrumbs-custom-path a {
+    color: #fff;
+    transition: 0.3s;
+}
+.breadcrumbs-custom-path a:hover {
+    color: #ffd700;
+}
+
+/* Heading */
+.heading .head {
+    font-size: 32px;
+    font-weight: 700;
+    color: #222;
+}
+
+/* Contact Section */
+.w3l-contacts-12 {
+    background: #f8f9fc;
+    padding-bottom: 70px;
+}
+
+.contacts12-main form .form-input {
+    width: 100%;
+    padding: 14px 15px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background: #fff;
+    margin-bottom: 20px;
+    transition: 0.3s;
+    font-size: 15px;
+}
+
+.contacts12-main form .form-input:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 5px rgba(74,144,226,0.3);
+}
+
+/* Submit Button */
+.btn-theme2 {
+    background: #4a90e2;
+    padding: 12px 30px;
+    border-radius: 30px;
+    color: #fff;
+    font-weight: 600;
+    transition: 0.3s;
+}
+.btn-theme2:hover {
+    background: #1e73d0;
+    color: #fff;
+}
+
+/* Contact Info Box */
+.contact .cont-subs {
+    background: #fff;
+    border-radius: 12px;
+    padding: 35px 30px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+.contact h5 {
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.cont-add {
+    display: flex;
+    margin-bottom: 25px;
+    align-items: flex-start;
+}
+.cont-add-lft {
+    width: 45px;
+    height: 45px;
+    background: #4a90e2;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.cont-add-lft span {
+    color: #fff;
+    font-size: 18px;
+}
+.cont-add-rgt h4 {
+    margin: 0;
+    margin-left: 12px;
+    font-size: 18px;
+    color: #333;
+}
+.cont-add-rgt p,
+.cont-add-rgt a {
+    margin-left: 12px;
+    color: #555;
+    font-size: 15px;
+}
+
+@media (max-width: 767px) {
+    .contact .cont-subs {
+        margin-top: 40px;
+    }
+    .heading .head {
+        font-size: 26px;
+    }
+}
+</style>
+
 
     <!-- inner banner -->
     <section class="w3l-inner-banner-main">
@@ -13,8 +133,6 @@
             </div>
         </div>
     </section>
-    <!-- //covers -->
-    <!---728x90--->
 
     <!-- contact -->
     <section class="w3l-contacts-12" id="contact">
@@ -24,14 +142,9 @@
                     <h3 class="head">Have you a question?</h3>
                     <p class="my-3 head"> </p>
                 </div>
-                <!---728x90--->
 
                 <div class="row cont-main-top mt-5 pt-3">
 
-                    <!-- contact address -->
-
-                    <!-- //contact address -->
-                    <!-- contact form -->
                     <div class="contacts12-main col-lg-7 pr-lg-5 pr-3">
                         @if(Session::has('success'))
                             <div class="alert alert-info">
@@ -74,11 +187,12 @@
                             </div>
                         </form>
                     </div>
-                    <!-- //contact form -->
+
                     <div class="contact col-lg-5 mt-lg-0 mt-5">
                         <div class="cont-subs">
                             <h5>Contact Info</h5>
                             <p class="mt-3">Have any Queries? Let us know. We will clear it for you at the best.</p>
+
                             <div class="cont-add mt-4">
                                 <div class="cont-add-lft">
                                     <span class="fa fa-map-marker" aria-hidden="true"></span>
@@ -88,7 +202,6 @@
                                     <p class="contact-text-sub">{{ $company_address }}</p>
                                 </div>
                             </div>
-
 
                             <div class="cont-add mt-4">
                                 <div class="cont-add-lft">
@@ -111,6 +224,7 @@
                                     </a>
                                 </div>
                             </div>
+
                             <div class="cont-add my-4">
                                 <div class="cont-add-lft">
                                     <span class="fa fa-phone" aria-hidden="true"></span>
@@ -137,15 +251,11 @@
 
                         </div>
                     </div>
+
                 </div>
             </div>
-            <!---728x90--->
 
         </div>
     </section>
-    <!-- //contact -->
-
-
-
 
 @endsection
