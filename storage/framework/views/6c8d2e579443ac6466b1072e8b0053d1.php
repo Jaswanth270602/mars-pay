@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{{ $company_name }}</title>
+<title><?php echo e($company_name); ?></title>
 <link href="//fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
@@ -305,30 +305,31 @@ ul { list-style:none; }
 </head>
 <body>
 
-{{-- CRITICAL: Authentication Redirect Logic --}}
-@if (Auth::guest())
-    {{-- User is not logged in, show normal landing page --}}
-@else
-    {{-- User is logged in, redirect to appropriate dashboard --}}
-    @if(Auth::user()->role_id <= 7)
-        <script type="text/javascript">
-            window.location.href = "{{ url('admin/dashboard') }}";
-        </script>
-    @else
-        <script type="text/javascript">
-            window.location.href = "{{ url('agent/dashboard') }}";
-        </script>
-    @endif
-@endif
 
-{!! $chat_script !!}
+<?php if(Auth::guest()): ?>
+    
+<?php else: ?>
+    
+    <?php if(Auth::user()->role_id <= 7): ?>
+        <script type="text/javascript">
+            window.location.href = "<?php echo e(url('admin/dashboard')); ?>";
+        </script>
+    <?php else: ?>
+        <script type="text/javascript">
+            window.location.href = "<?php echo e(url('agent/dashboard')); ?>";
+        </script>
+    <?php endif; ?>
+<?php endif; ?>
+
+<?php echo $chat_script; ?>
+
 
 <!-- Top Header -->
 <div class="top-hd">
     <div class="container">
         <div>
-            <span><i class="fas fa-phone-alt"></i><a href="tel:{{ $whatsapp_number }}">{{ $whatsapp_number }}</a></span>
-            <span style="margin-left:20px;"><i class="fas fa-envelope"></i><a href="mailto:{{ $company_email }}">{{ $company_email }}</a></span>
+            <span><i class="fas fa-phone-alt"></i><a href="tel:<?php echo e($whatsapp_number); ?>"><?php echo e($whatsapp_number); ?></a></span>
+            <span style="margin-left:20px;"><i class="fas fa-envelope"></i><a href="mailto:<?php echo e($company_email); ?>"><?php echo e($company_email); ?></a></span>
         </div>
         <div class="social-top">
             <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
@@ -341,25 +342,25 @@ ul { list-style:none; }
 
 <!-- Navbar -->
 <nav class="navbar">
-    <a class="navbar-brand" href="{{url('')}}">
-        <img src="{{$cdnLink}}{{ $company_logo }}" alt="{{ $company_name }}">
+    <a class="navbar-brand" href="<?php echo e(url('')); ?>">
+        <img src="<?php echo e($cdnLink); ?><?php echo e($company_logo); ?>" alt="<?php echo e($company_name); ?>">
     </a>
     <ul class="navbar-nav">
-        <li><a href="{{url('')}}"><i class="fas fa-home"></i> Home</a></li>
-        @foreach(App\Models\Navigation::where('status_id', 1)->where('company_id', $company_id)->where('type', 1)->get() as $value)
-            <li><a href="{{url('pages')}}/{{$company_id}}/{{ $value->navigation_slug}}">{{ $value->navigation_name }}</a></li>
-        @endforeach
-        <li><a href="{{url('contact-us')}}"><i class="fas fa-envelope"></i> Contact</a></li>
+        <li><a href="<?php echo e(url('')); ?>"><i class="fas fa-home"></i> Home</a></li>
+        <?php $__currentLoopData = App\Models\Navigation::where('status_id', 1)->where('company_id', $company_id)->where('type', 1)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <li><a href="<?php echo e(url('pages')); ?>/<?php echo e($company_id); ?>/<?php echo e($value->navigation_slug); ?>"><?php echo e($value->navigation_name); ?></a></li>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        <li><a href="<?php echo e(url('contact-us')); ?>"><i class="fas fa-envelope"></i> Contact</a></li>
     </ul>
     <div class="navbar-actions">
-        <a class="btn btn-secondary btn-theme" href="{{url('login')}}">
+        <a class="btn btn-secondary btn-theme" href="<?php echo e(url('login')); ?>">
             <i class="fas fa-sign-in-alt"></i> Login
         </a>
-        @if($registration_status == 1)
-            <a class="btn btn-primary btn-theme" href="{{url('sign-up')}}">
+        <?php if($registration_status == 1): ?>
+            <a class="btn btn-primary btn-theme" href="<?php echo e(url('sign-up')); ?>">
                 <i class="fas fa-user-plus"></i> Register
             </a>
-        @endif
+        <?php endif; ?>
     </div>
 </nav>
 
@@ -368,13 +369,13 @@ ul { list-style:none; }
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="5000">
         <div class="carousel-inner">
             
-           @if(!empty($frontbanner))
-                @foreach($frontbanner as $key => $banner)
-                    <div class="carousel-item {{ $key == 0 ? ' active' : '' }}">
-                        <img src="{{$banner->banners}}" alt="Banner">
+           <?php if(!empty($frontbanner)): ?>
+                <?php $__currentLoopData = $frontbanner; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $banner): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <div class="carousel-item <?php echo e($key == 0 ? ' active' : ''); ?>">
+                        <img src="<?php echo e($banner->banners); ?>" alt="Banner">
                     </div>
-                @endforeach
-                @endif
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                <?php endif; ?>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon"></span>
@@ -415,7 +416,7 @@ ul { list-style:none; }
 <!-- CONTENT AREA -->
 <div class="content-wrapper">
     <div class="container">
-        @yield('content')
+        <?php echo $__env->yieldContent('content'); ?>
     </div>
 </div>
 
@@ -426,9 +427,9 @@ ul { list-style:none; }
             <!-- Company Info -->
             <div>
                 <div class="footer-logo">
-                    <img src="{{$cdnLink}}{{ $company_logo }}" alt="{{ $company_name }}">
+                    <img src="<?php echo e($cdnLink); ?><?php echo e($company_logo); ?>" alt="<?php echo e($company_name); ?>">
                 </div>
-                <p>{{ $company_name }} is a trusted payment solution platform providing fast, secure, and reliable services for all kinds of businesses.</p>
+                <p><?php echo e($company_name); ?> is a trusted payment solution platform providing fast, secure, and reliable services for all kinds of businesses.</p>
                 <div class="footer-social">
                     <a href="#"><i class="fab fa-facebook-f"></i></a>
                     <a href="#"><i class="fab fa-instagram"></i></a>
@@ -440,19 +441,19 @@ ul { list-style:none; }
             <!-- Quick Links -->
             <div>
                 <h4>Quick Links</h4>
-                <a href="{{url('')}}">Home</a>
-                @foreach(App\Models\Navigation::where('status_id', 1)->where('company_id', $company_id)->where('type', 1)->get() as $value)
-                    <a href="{{url('pages')}}/{{$company_id}}/{{ $value->navigation_slug}}">{{ $value->navigation_name }}</a>
-                @endforeach
-                <a href="{{url('contact-us')}}">Contact Us</a>
+                <a href="<?php echo e(url('')); ?>">Home</a>
+                <?php $__currentLoopData = App\Models\Navigation::where('status_id', 1)->where('company_id', $company_id)->where('type', 1)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <a href="<?php echo e(url('pages')); ?>/<?php echo e($company_id); ?>/<?php echo e($value->navigation_slug); ?>"><?php echo e($value->navigation_name); ?></a>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                <a href="<?php echo e(url('contact-us')); ?>">Contact Us</a>
             </div>
             
             <!-- Legal -->
             <div>
                 <h4>Legal</h4>
-                @foreach(App\Models\Navigation::where('status_id', 1)->where('company_id', $company_id)->where('type', 2)->get() as $value)
-                    <a href="{{url('pages')}}/{{$company_id}}/{{ $value->navigation_slug}}">{{ $value->navigation_name }}</a>
-                @endforeach
+                <?php $__currentLoopData = App\Models\Navigation::where('status_id', 1)->where('company_id', $company_id)->where('type', 2)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <a href="<?php echo e(url('pages')); ?>/<?php echo e($company_id); ?>/<?php echo e($value->navigation_slug); ?>"><?php echo e($value->navigation_name); ?></a>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
             
             <!-- Contact -->
@@ -460,21 +461,21 @@ ul { list-style:none; }
                 <h4>Contact Us</h4>
                 <p style="display:flex; align-items:start; margin:12px 0;">
                     <i class="fas fa-map-marker-alt" style="margin-right:10px; margin-top:4px;"></i>
-                    <span>{{ $company_address ?? 'Your Business Address' }}</span>
+                    <span><?php echo e($company_address ?? 'Your Business Address'); ?></span>
                 </p>
                 <p style="display:flex; align-items:center; margin:12px 0;">
                     <i class="fas fa-envelope" style="margin-right:10px;"></i>
-                    <span>{{ $company_email }}</span>
+                    <span><?php echo e($company_email); ?></span>
                 </p>
                 <p style="display:flex; align-items:center; margin:12px 0;">
                     <i class="fas fa-phone-alt" style="margin-right:10px;"></i>
-                    <span>{{ $whatsapp_number }}</span>
+                    <span><?php echo e($whatsapp_number); ?></span>
                 </p>
             </div>
         </div>
         
         <div class="footer-bottom">
-            © {{ date('Y') }} {{ $company_name }}. All Rights Reserved. | Made with <i class="fas fa-heart" style="color:#e53e3e;"></i> in India
+            © <?php echo e(date('Y')); ?> <?php echo e($company_name); ?>. All Rights Reserved. | Made with <i class="fas fa-heart" style="color:#e53e3e;"></i> in India
         </div>
     </div>
 </footer>
@@ -485,4 +486,4 @@ ul { list-style:none; }
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
 </body>
-</html>
+</html><?php /**PATH C:\Users\pc\Desktop\mars-pay\resources\views/front/template1/header.blade.php ENDPATH**/ ?>
